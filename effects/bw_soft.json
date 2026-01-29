@@ -1,0 +1,9 @@
+{
+  "name": "bw_soft",
+  "pipeline": [
+    {"op": "grayscale"},
+    {"op": "adjust_contrast", "value": 0.85},
+    {"op": "GaussianBlur", "radius": 0.4},
+    {"op": "grain", "intensity": 3, "blend": 0.045}
+  ]
+}

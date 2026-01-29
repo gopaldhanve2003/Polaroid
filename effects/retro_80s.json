@@ -1,0 +1,10 @@
+{
+  "name": "retro_80s",
+  "pipeline": [
+    {"op": "adjust_saturation", "value": 1.3},
+    {"op": "adjust_contrast", "value": 1.15},
+    {"op": "multiply_channel", "channel": "R", "value": 1.05},
+    {"op": "GaussianBlur", "radius": 0.3},
+    {"op": "grain", "intensity": 3, "blend": 0.03}
+  ]
+}

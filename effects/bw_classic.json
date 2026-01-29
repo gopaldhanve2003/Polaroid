@@ -1,0 +1,9 @@
+{
+  "name": "bw_classic",
+  "pipeline": [
+    {"op": "grayscale"},
+    {"op": "adjust_contrast", "value": 1.0},
+    {"op": "GaussianBlur", "radius": 0.3},
+    {"op": "grain", "intensity": 3, "blend": 0.04}
+  ]
+}

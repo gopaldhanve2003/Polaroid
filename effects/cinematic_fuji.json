@@ -1,0 +1,10 @@
+{
+  "name": "cinematic_fuji",
+  "pipeline": [
+    {"op": "adjust_contrast", "value": 1.1},
+    {"op": "adjust_saturation", "value": 1.2},
+    {"op": "multiply_channel", "channel": "R", "value": 0.95},
+    {"op": "GaussianBlur", "radius": 0.3},
+    {"op": "grain", "intensity": 3, "blend": 0.03}
+  ]
+}

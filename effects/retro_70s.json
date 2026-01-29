@@ -1,0 +1,10 @@
+{
+  "name": "retro_70s",
+  "pipeline": [
+    {"op": "adjust_saturation", "value": 1.2},
+    {"op": "adjust_contrast", "value": 1.1},
+    {"op": "multiply_channel", "channel": "R", "value": 1.2},
+    {"op": "GaussianBlur", "radius": 0.3},
+    {"op": "grain", "intensity": 3, "blend": 0.03}
+  ]
+}

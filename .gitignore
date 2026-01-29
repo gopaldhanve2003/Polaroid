@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+
+.venv/
+
+images/output/
+images/input/
+images/compressed/

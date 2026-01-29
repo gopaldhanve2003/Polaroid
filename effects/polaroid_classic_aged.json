@@ -1,0 +1,12 @@
+{
+  "name": "polaroid_classic_aged",
+  "pipeline": [
+    {"op": "multiply_channel", "channel": "R", "value": 1.06},
+    {"op": "multiply_channel", "channel": "B", "value": 0.9},
+    {"op": "adjust_saturation", "value": 0.82},
+    {"op": "adjust_contrast", "value": 0.85},
+    {"op": "adjust_brightness", "value": 1.01},
+    {"op": "GaussianBlur", "radius": 0.6},
+    {"op": "grain", "intensity": 3, "blend": 0.045}
+  ]
+}

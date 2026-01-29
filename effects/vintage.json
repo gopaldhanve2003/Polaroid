@@ -1,0 +1,12 @@
+{
+  "name": "vintage",
+  "pipeline": [
+    {"op": "multiply_channel", "channel": "R", "value": 1.05},
+    {"op": "multiply_channel", "channel": "B", "value": 0.93},
+    {"op": "adjust_saturation", "value": 0.7},
+    {"op": "adjust_contrast", "value": 0.88},
+    {"op": "adjust_brightness", "value": 1.05},
+    {"op": "GaussianBlur", "radius": 0.5},
+    {"op": "grain", "intensity": 3, "blend": 0.045}
+  ]
+}

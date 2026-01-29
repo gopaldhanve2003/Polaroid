@@ -1,0 +1,12 @@
+{
+  "name": "polaroid_classic",
+  "pipeline": [
+    {"op": "multiply_channel", "channel": "R", "value": 1.03},
+    {"op": "multiply_channel", "channel": "B", "value": 0.95},
+    {"op": "adjust_saturation", "value": 0.9},
+    {"op": "adjust_contrast", "value": 0.92},
+    {"op": "adjust_brightness", "value": 1.03},
+    {"op": "GaussianBlur", "radius": 0.4},
+    {"op": "grain", "intensity": 2, "blend": 0.035}
+  ]
+}

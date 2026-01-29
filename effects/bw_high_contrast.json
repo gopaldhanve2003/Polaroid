@@ -1,0 +1,9 @@
+{
+  "name": "bw_high_contrast",
+  "pipeline": [
+    {"op": "grayscale"},
+    {"op": "adjust_contrast", "value": 1.25},
+    {"op": "GaussianBlur", "radius": 0.3},
+    {"op": "grain", "intensity": 3, "blend": 0.04}
+  ]
+}

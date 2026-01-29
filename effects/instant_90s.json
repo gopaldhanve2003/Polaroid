@@ -1,0 +1,8 @@
+{
+  "name": "instant_90s",
+  "pipeline": [
+    {"op": "adjust_saturation", "value": 1.1},
+    {"op": "GaussianBlur", "radius": 0.3},
+    {"op": "grain", "intensity": 3, "blend": 0.03}
+  ]
+}

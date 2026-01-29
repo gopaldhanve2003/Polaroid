@@ -1,0 +1,11 @@
+{
+  "name": "cross_strong",
+  "pipeline": [
+    {"op": "adjust_contrast", "value": 1.25},
+    {"op": "adjust_saturation", "value": 1.52},
+    {"op": "multiply_channel", "channel": "R", "value": 1.13},
+    {"op": "multiply_channel", "channel": "B", "value": 0.87},
+    {"op": "GaussianBlur", "radius": 0.3},
+    {"op": "grain", "intensity": 3, "blend": 0.03}
+  ]
+}
