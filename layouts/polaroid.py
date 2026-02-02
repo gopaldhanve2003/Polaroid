@@ -14,7 +14,7 @@ class PolaroidFrame(StyleProcessor):
         # --- Authentic Polaroid proportions (fresh print) ---
         side = int(ow * 0.06)
         top = int(ow * 0.06)
-        bottom = int(oh * 0.19)
+        bottom = int(oh * 0.3235294118)
 
         fw = ow + side * 2
         fh = oh + top + bottom
