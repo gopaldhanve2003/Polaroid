@@ -9,6 +9,7 @@ from engine import (
 )
 from tools.compress import compress_images
 from registry import list_effects
+from layouts.polaroid import DEFAULT_PAPER_SIZE, PAPER_SIZES_MM, get_supported_paper_sizes
 
 
 def build_parser():
@@ -34,6 +35,7 @@ def build_parser():
 
     # listing
     parser.add_argument("--list-effects", action="store_true")
+    parser.add_argument("--list-paper-sizes", action="store_true")
 
     # generation options
     gen = parser.add_argument_group("generation options")
@@ -45,6 +47,14 @@ def build_parser():
     )
     gen.add_argument("-a", "--all", action="store_true")
     gen.add_argument("-r", "--random", type=int)
+    gen.add_argument(
+        "--paper-size",
+        default=DEFAULT_PAPER_SIZE,
+        help=(
+            "Paper size for the Polaroid frame. "
+            "Use --list-paper-sizes to view available values."
+        ),
+    )
 
     # tools
     tools = parser.add_argument_group("tools")
@@ -67,6 +77,22 @@ def main():
             for e in available_effects:
                 print(f"  - {e}")
             return
+
+        available_paper_sizes = get_supported_paper_sizes()
+
+        if args.list_paper_sizes:
+            print("Available paper sizes:")
+            for name in available_paper_sizes:
+                w, h = PAPER_SIZES_MM[name]
+                marker = " (default)" if name == DEFAULT_PAPER_SIZE else ""
+                print(f"  - {name}: {w}mm x {h}mm{marker}")
+            return
+
+        if args.paper_size not in available_paper_sizes:
+            supported = ", ".join(available_paper_sizes)
+            raise ValueError(
+                f"Unknown paper size '{args.paper_size}'. Supported: {supported}"
+            )
 
         # ---- tools ----
         if args.compress:
@@ -95,6 +121,7 @@ def main():
                 effects=args.effects,
                 output_dir=args.output,
                 dry_run=args.dry_run,
+                paper_size=args.paper_size,
             )
             return
 
@@ -104,6 +131,7 @@ def main():
                 args.input,
                 args.output,
                 args.dry_run,
+                args.paper_size,
             )
             return
 
@@ -113,6 +141,7 @@ def main():
                 args.input,
                 args.output,
                 args.dry_run,
+                args.paper_size,
             )
             return
 
@@ -121,6 +150,7 @@ def main():
             input_image=args.input,
             output_dir=args.output,
             dry_run=args.dry_run,
+            paper_size=args.paper_size,
         )
 
     except Exception as exc:
@@ -130,4 +160,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
