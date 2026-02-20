@@ -13,6 +13,7 @@ This project simulates **instant film characteristics** (color response, contras
 * Process **single images or entire directories**.
 * Generate **all effects** or **random selections**.
 * Fully **JSON-driven effects** (no hard-coded values).
+* Choose between **two paper sizes** (`half_4r`, `a6`) from CLI.
 * Optional image compression for storage or sharing.
 
 ---
@@ -83,6 +84,22 @@ Generate a random subset of effects:
 
 ```bash
 python3 polaroid.py --input path/to/image.jpg --random 5
+```
+
+---
+
+### Choose Paper Size
+
+Use `--paper-size` with either `half_4r` or `a6`:
+
+```bash
+python3 polaroid.py --input path/to/image.jpg --paper-size a6
+```
+
+To list the supported paper sizes:
+
+```bash
+python3 polaroid.py --list-paper-sizes
 ```
 
 ---

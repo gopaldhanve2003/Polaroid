@@ -9,6 +9,7 @@ from engine import (
 )
 from tools.compress import compress_images
 from registry import list_effects
+from layouts.polaroid import PAPER_SIZES_MM
 
 
 def build_parser():
@@ -34,6 +35,7 @@ def build_parser():
 
     # listing
     parser.add_argument("--list-effects", action="store_true")
+    parser.add_argument("--list-paper-sizes", action="store_true")
 
     # generation options
     gen = parser.add_argument_group("generation options")
@@ -45,6 +47,12 @@ def build_parser():
     )
     gen.add_argument("-a", "--all", action="store_true")
     gen.add_argument("-r", "--random", type=int)
+    gen.add_argument(
+        "--paper-size",
+        choices=tuple(PAPER_SIZES_MM.keys()),
+        default="half_4r",
+        help="Paper size for the Polaroid frame",
+    )
 
     # tools
     tools = parser.add_argument_group("tools")
@@ -66,6 +74,12 @@ def main():
             print("Available effects:")
             for e in available_effects:
                 print(f"  - {e}")
+            return
+
+        if args.list_paper_sizes:
+            print("Available paper sizes:")
+            for name, (w, h) in PAPER_SIZES_MM.items():
+                print(f"  - {name}: {w}mm x {h}mm")
             return
 
         # ---- tools ----
@@ -95,6 +109,7 @@ def main():
                 effects=args.effects,
                 output_dir=args.output,
                 dry_run=args.dry_run,
+                paper_size=args.paper_size,
             )
             return
 
@@ -104,6 +119,7 @@ def main():
                 args.input,
                 args.output,
                 args.dry_run,
+                args.paper_size,
             )
             return
 
@@ -113,6 +129,7 @@ def main():
                 args.input,
                 args.output,
                 args.dry_run,
+                args.paper_size,
             )
             return
 
@@ -121,6 +138,7 @@ def main():
             input_image=args.input,
             output_dir=args.output,
             dry_run=args.dry_run,
+            paper_size=args.paper_size,
         )
 
     except Exception as exc:

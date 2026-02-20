@@ -22,6 +22,7 @@ def generate_styles(
     input_image=None,
     output_dir="images/output",
     dry_run=False,
+    paper_size="half_4r",
 ):
     if not input_image:
         raise ValueError("input_image is required")
@@ -32,7 +33,7 @@ def generate_styles(
             raise ValueError(f"Unknown effects: {', '.join(bad)}")
 
     _ensure_dir(output_dir)
-    pipeline = None if dry_run else PolaroidPipeline(input_image)
+    pipeline = None if dry_run else PolaroidPipeline(input_image, paper_size=paper_size)
 
     # No effect = Polaroid Classic
     if not effects:
@@ -57,16 +58,24 @@ def generate_styles(
             pipeline.apply_style(effect, out)
 
 
-def generate_all_combinations(input_image, output_dir, dry_run=False):
+def generate_all_combinations(input_image, output_dir, dry_run=False, paper_size="half_4r"):
+
     generate_styles(
         effects=EFFECTS,
         input_image=input_image,
         output_dir=output_dir,
         dry_run=dry_run,
+        paper_size=paper_size,
     )
 
 
-def generate_random_combinations(n, input_image, output_dir, dry_run=False):
+def generate_random_combinations(
+    n,
+    input_image,
+    output_dir,
+    dry_run=False,
+    paper_size="half_4r",
+):
     if n > len(EFFECTS):
         n = len(EFFECTS)
 
@@ -77,6 +86,7 @@ def generate_random_combinations(n, input_image, output_dir, dry_run=False):
         input_image=input_image,
         output_dir=output_dir,
         dry_run=dry_run,
+        paper_size=paper_size,
     )
 
 
@@ -85,6 +95,7 @@ def batch_process(
     effects,
     output_dir,
     dry_run=False,
+    paper_size="half_4r",
 ):
     if not os.path.isdir(input_dir):
         raise ValueError(f"Invalid input directory: {input_dir}")
@@ -104,5 +115,6 @@ def batch_process(
             input_image=img,
             output_dir=output_dir,
             dry_run=dry_run,
+            paper_size=paper_size,
         )
 

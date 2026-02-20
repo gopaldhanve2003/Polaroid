@@ -6,7 +6,7 @@ from layouts.polaroid import PolaroidFrame
 
 
 class PolaroidPipeline:
-    def __init__(self, input_path: str):
+    def __init__(self, input_path: str, paper_size: str = "half_4r"):
         if not os.path.isfile(input_path):
             raise FileNotFoundError(f"Input image not found: {input_path}")
 
@@ -15,6 +15,7 @@ class PolaroidPipeline:
             image = image.convert("RGB")
 
         self.image = image
+        self.paper_size = paper_size
 
     def apply_style(self, effect: str | None, output_path: str):
         """
@@ -33,7 +34,7 @@ class PolaroidPipeline:
             img = EffectProcessor(effect).apply(img)
 
         # always apply Polaroid layout
-        img = PolaroidFrame(img).process()
+        img = PolaroidFrame(img, paper_size=self.paper_size).process()
 
         output_dir = os.path.dirname(output_path)
         if output_dir:
