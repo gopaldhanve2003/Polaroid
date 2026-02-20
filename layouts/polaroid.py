@@ -7,6 +7,8 @@ PAPER_SIZES_MM = {
     "a6": (105, 148),
 }
 
+DEFAULT_PAPER_SIZE = "half_4r"
+
 # Keep frame feel consistent across supported print sizes.
 # Values are ratios of frame width/height.
 FRAME_RATIOS = {
@@ -25,15 +27,26 @@ FRAME_RATIOS = {
 }
 
 
+def get_supported_paper_sizes():
+    return tuple(PAPER_SIZES_MM.keys())
+
+
 class PolaroidFrame(StyleProcessor):
-    def __init__(self, image, paper_size: str = "half_4r"):
+    def __init__(self, image, paper_size: str = DEFAULT_PAPER_SIZE):
         super().__init__(image)
 
         if paper_size not in PAPER_SIZES_MM:
-            supported = ", ".join(PAPER_SIZES_MM)
+            supported = ", ".join(get_supported_paper_sizes())
             raise ValueError(
                 f"Unsupported paper_size '{paper_size}'. "
                 f"Supported paper sizes: {supported}"
+            )
+
+        if paper_size not in FRAME_RATIOS:
+            supported = ", ".join(FRAME_RATIOS.keys())
+            raise ValueError(
+                f"Missing FRAME_RATIOS profile for '{paper_size}'. "
+                f"Configured profiles: {supported}"
             )
 
         self.paper_size = paper_size

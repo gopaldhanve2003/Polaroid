@@ -9,7 +9,7 @@ from engine import (
 )
 from tools.compress import compress_images
 from registry import list_effects
-from layouts.polaroid import PAPER_SIZES_MM
+from layouts.polaroid import DEFAULT_PAPER_SIZE, PAPER_SIZES_MM, get_supported_paper_sizes
 
 
 def build_parser():
@@ -49,9 +49,11 @@ def build_parser():
     gen.add_argument("-r", "--random", type=int)
     gen.add_argument(
         "--paper-size",
-        choices=tuple(PAPER_SIZES_MM.keys()),
-        default="half_4r",
-        help="Paper size for the Polaroid frame",
+        default=DEFAULT_PAPER_SIZE,
+        help=(
+            "Paper size for the Polaroid frame. "
+            "Use --list-paper-sizes to view available values."
+        ),
     )
 
     # tools
@@ -76,11 +78,21 @@ def main():
                 print(f"  - {e}")
             return
 
+        available_paper_sizes = get_supported_paper_sizes()
+
         if args.list_paper_sizes:
             print("Available paper sizes:")
-            for name, (w, h) in PAPER_SIZES_MM.items():
-                print(f"  - {name}: {w}mm x {h}mm")
+            for name in available_paper_sizes:
+                w, h = PAPER_SIZES_MM[name]
+                marker = " (default)" if name == DEFAULT_PAPER_SIZE else ""
+                print(f"  - {name}: {w}mm x {h}mm{marker}")
             return
+
+        if args.paper_size not in available_paper_sizes:
+            supported = ", ".join(available_paper_sizes)
+            raise ValueError(
+                f"Unknown paper size '{args.paper_size}'. Supported: {supported}"
+            )
 
         # ---- tools ----
         if args.compress:
@@ -148,4 +160,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

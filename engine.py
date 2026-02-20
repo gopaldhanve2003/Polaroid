@@ -22,7 +22,7 @@ def generate_styles(
     input_image=None,
     output_dir="images/output",
     dry_run=False,
-    paper_size="half_4r",
+    paper_size=None,
 ):
     if not input_image:
         raise ValueError("input_image is required")
@@ -58,7 +58,7 @@ def generate_styles(
             pipeline.apply_style(effect, out)
 
 
-def generate_all_combinations(input_image, output_dir, dry_run=False, paper_size="half_4r"):
+def generate_all_combinations(input_image, output_dir, dry_run=False, paper_size=None):
 
     generate_styles(
         effects=EFFECTS,
@@ -74,7 +74,7 @@ def generate_random_combinations(
     input_image,
     output_dir,
     dry_run=False,
-    paper_size="half_4r",
+    paper_size=None,
 ):
     if n > len(EFFECTS):
         n = len(EFFECTS)
@@ -95,7 +95,7 @@ def batch_process(
     effects,
     output_dir,
     dry_run=False,
-    paper_size="half_4r",
+    paper_size=None,
 ):
     if not os.path.isdir(input_dir):
         raise ValueError(f"Invalid input directory: {input_dir}")

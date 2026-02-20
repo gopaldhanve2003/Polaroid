@@ -2,11 +2,11 @@ import os
 from PIL import Image
 
 from core.effect_processor import EffectProcessor
-from layouts.polaroid import PolaroidFrame
+from layouts.polaroid import DEFAULT_PAPER_SIZE, PolaroidFrame
 
 
 class PolaroidPipeline:
-    def __init__(self, input_path: str, paper_size: str = "half_4r"):
+    def __init__(self, input_path: str, paper_size: str | None = DEFAULT_PAPER_SIZE):
         if not os.path.isfile(input_path):
             raise FileNotFoundError(f"Input image not found: {input_path}")
 
@@ -15,7 +15,7 @@ class PolaroidPipeline:
             image = image.convert("RGB")
 
         self.image = image
-        self.paper_size = paper_size
+        self.paper_size = paper_size or DEFAULT_PAPER_SIZE
 
     def apply_style(self, effect: str | None, output_path: str):
         """
